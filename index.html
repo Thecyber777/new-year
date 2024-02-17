@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>✨ Menuju 2025</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #222;
+    }
+
+    #countdown {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      background-color: #333;
+      border: 6px solid #555;
+      border-radius: 10px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 0, 0, 0.6);
+    }
+
+    .countdown-item {
+      text-align: center;
+      padding: 10px;
+      border-radius: 60%;
+      border: 10px solid #555;
+      background-color: #444;
+      color: #fff;
+      margin: 50px;
+      width: 50px;
+      height: 50px;
+      position: relative;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 0, 0, 0.7);
+    }
+
+    .countdown-item:before {
+      content: "";
+      display: block;
+      padding-bottom: 100%;
+    }
+
+    .countdown-value {
+      font-size: 1.5em;
+      font-weight: bold;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .time-size {
+      margin: -10px;
+      font-size: 12px;
+    }
+
+    @media (max-width: 600px) {
+      .countdown-value {
+        font-size: 15px;
+      }
+
+      .time-size {
+        margin: -15px;
+        font-size: 8px;
+      }
+
+      .countdown-item {
+        padding: 2px;
+        border-radius: 60%;
+        border: 10px solid #555;
+        color: #fff;
+        margin: 8px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="countdown">
+    <div class="countdown-item">
+      <div class="countdown-value" id="days">0</div>
+      <div class="time-size">Hari</div>
+    </div>
+    <div class="countdown-item">
+      <div class="countdown-value" id="hours">0</div>
+      <div class="time-size">Jam</div>
+    </div>
+    <div class="countdown-item">
+      <div class="countdown-value" id="minutes">0</div>
+      <div class="time-size">Menit</div>
+    </div>
+    <div class="countdown-item">
+      <div class="countdown-value" id="seconds">0</div>
+      <div class="time-size">Detik</div>
+    </div>
+  </div>
+
+  <audio id="happyNewYearAudio" src="url_lagu_happy_new_year.mp3" preload="auto"></audio>
+
+  <script>
+    const targetDate = new Date("2024-12-31T23:00:00").getTime();
+    const countdownInterval = setInterval(updateCountdown, 1000);
+
+    function updateCountdown() {
+      const currentDate = new Date().getTime();
+      const remainingTime = targetDate - currentDate;
+
+      if (remainingTime <= 0) {
+        clearInterval(countdownInterval);
+        document.getElementById("countdown").innerHTML = "Happy New Year!";
+        playHappyNewYearSong();
+      } else {
+        const days = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+
+        document.getElementById("days").innerHTML = days;
+        document.getElementById("hours").innerHTML = hours;
+        document.getElementById("minutes").innerHTML = minutes;
+        document.getElementById("seconds").innerHTML = seconds;
+      }
+    }
+
+    function playHappyNewYearSong() {
+      const audio = document.getElementById("happyNewYearAudio");
+      audio.play();
+    }
+  </script>
+
+</body>
+
+</html>
